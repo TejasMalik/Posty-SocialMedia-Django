@@ -1,0 +1,46 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="columns">
+        <div class="column is-12">
+            <h1 class="title">Log in</h1>
+
+            <form method="post" action=".">
+                {% csrf_token %}
+
+                <div class="card">
+  <div class="card-content">
+    <p class="title">
+{% for field in form %}
+                <div class="field">
+                    <label class="label">{{ field.label }}</label>
+                        <div class="control">
+                            <input class="input" id="{{ field.id_for_label }}" name="{{ field.html_name }}" type="{{ field.field.widget.input_type }}">
+                            {% if form.errors %}
+            {% for error in field.errors %}
+            <p class="help is-danger">
+                {{ error|escape }}
+            </p>
+            {% endfor %}
+        {% endif %}
+                        </div>
+                </div>
+                {% endfor %}    </p>
+  </div>
+  <footer class="card-footer">
+    <p class="card-footer-item">
+      <span>
+                <button class="button is-success" type="submit">Log in</button>
+      </span>
+    </p>
+  </footer>
+</div>
+
+                {% comment %} {{ form.as_p }} {% endcomment %}
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
